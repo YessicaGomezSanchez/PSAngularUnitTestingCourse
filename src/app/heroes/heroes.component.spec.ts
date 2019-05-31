@@ -19,10 +19,10 @@ describe('HeroesComponent', () => {
     describe('delete',()=>{
 
         it('should remove the indicated hero from the heroes list', () =>{
-            // mockHeroService.deleteHeroe.andReturnValue(of(true))
+            spyOn(component, 'delete');
             component.heroes = HEROES;
             component.delete(HEROES[2]);
-            expect(component.heroes.length).toBe(2);
+            expect(component.delete).toHaveBeenCalled();
         })
     })
 })
