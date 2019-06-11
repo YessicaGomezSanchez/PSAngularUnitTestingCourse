@@ -1,6 +1,5 @@
 import { HeroesComponent } from './heroes.component';
-import { of } from 'rxjs';
-
+import { of } from 'rxjs/internal/observable/of';
 
 describe('HeroesComponent', () => {
     let component: HeroesComponent;
@@ -19,10 +18,18 @@ describe('HeroesComponent', () => {
     describe('delete',()=>{
 
         it('should remove the indicated hero from the heroes list', () =>{
-            spyOn(component, 'delete');
+            mockHeroService.deleteHero.and.returnValue(of(true))
+            // spyOn(component, 'delete');
             component.heroes = HEROES;
             component.delete(HEROES[2]);
-            expect(component.delete).toHaveBeenCalled();
+            expect(component.heroes.length).toBe(2);
+            // expect(component.delete).toHaveBeenCalled();
         })
+        xit('should call deleteHero',()=>{
+            mockHeroService.deleteHero.and.returnValue(of(true))
+            component.heroes = HEROES;
+            component.delete(HEROES[2]);
+            expect(mockHeroService.deleteHero).toHaveBeenCalledWith(HEROES[2]);
+        })   
     })
 })
